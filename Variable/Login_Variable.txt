@@ -1,0 +1,3 @@
+*** Variables ***
+${valid_email}    duyentest@gmail.com
+${valid_password}    Poeta0404

@@ -1,0 +1,38 @@
+*** Settings ***
+Suite Setup
+Test Setup        Open Application    http://localhost:4723/wd/hub    platformName=Android    platformVersion=8.0.0    deviceName=BH903K4R72    appPackage=com.rngopher    appActivity=com.rngopher.MainActivity
+Test Teardown     Close Application
+Library           AppiumLibrary
+Resource          ../Interfaces/LoginScreen.txt
+Resource          ../Variable/Login_Variable.txt
+Resource          ../Interfaces/Dashboard.txt
+Resource          ../Keywords/Login_keyword.txt
+
+*** Test Cases ***
+TC01: Login with valid account
+    Comment    STEP 1: Login with valid credential
+    Login    ${valid_email}    ${valid_password}
+    Comment    VP: User is able to login with valid account successfully
+    Wait Until Element Is Visible    ${lbl_headerLocation_Dashboard}    10s
+    Element Should Be Visible    ${lbl_headerLocation_Dashboard}
+
+TC02: Login with incorrect email
+    Comment    STEP 1: Login with incorrect email
+    Login    abc@abc.com    Poeta0404
+    Comment    VP: Alert message displays to indicate that Email or password is wrong
+    Wait Until Element Is Visible    ${alr_WrongEmailPassword_LoginScreen}
+    Element Text Should Be    ${alr_WrongEmailPassword_LoginScreen}    Wrong email or password.
+
+TC03: Login with invalid email
+    Comment    STEP 1: Input invalid email
+    Wait Until Element Is Visible    ${btn_SignIn_LoginScreen}
+    Input Text    ${txt_Email_LoginScreen}    abc
+    Comment    STEP 2: Input invalid format for Password
+    Input Text    ${txt_Password_LoginScreen}    1
+    Comment    STEP 3: Click Login button
+    Hide Keyboard
+    Click Element    ${btn_SignIn_LoginScreen}
+    Comment    VP: Error messages display to indicate that Email and Password are invalid
+    Wait Until Element Is Visible    ${msg_InvalidEmail_LoginScreen}
+    Element Text Should Be    ${msg_InvalidEmail_LoginScreen}    Invalid email address (name@domain.com).
+    Element Text Should Be    ${msg_InvalidPasswordl_LoginScreen}    Password must be between 6 and 15 characters in length.

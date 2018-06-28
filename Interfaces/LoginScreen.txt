@@ -1,0 +1,7 @@
+*** Variables ***
+${txt_Email_LoginScreen}    //android.widget.EditText[@text='E-mail Address']
+${txt_Password_LoginScreen}    //android.widget.EditText[@text='Password']
+${btn_SignIn_LoginScreen}    //android.widget.TextView[@text='SIGN IN']
+${alr_WrongEmailPassword_LoginScreen}    //android.widget.TextView[@resource-id='android:id/message']
+${msg_InvalidPasswordl_LoginScreen}    //android.widget.TextView[@text='Password must be between 6 and 15 characters in length.']
+${msg_InvalidEmail_LoginScreen}    //android.widget.TextView[@text='Invalid email address (name@domain.com).']

@@ -1,0 +1,15 @@
+*** Settings ***
+Resource          ../Interfaces/LoginScreen.txt
+Library           AppiumLibrary
+
+*** Keywords ***
+Login
+    [Arguments]    ${email}    ${password}
+    Wait Until Element Is Visible    ${btn_SignIn_LoginScreen}
+    Element Should Be Visible    ${btn_SignIn_LoginScreen}
+    Comment    STEP 2: Input valid email and password
+    Input Text    ${txt_Email_LoginScreen}    ${email}
+    Input Text    ${txt_Password_LoginScreen}    ${password}
+    Comment    STEP 3: Click Login button
+    Hide Keyboard
+    Click Element    ${btn_SignIn_LoginScreen}
