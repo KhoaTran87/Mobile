@@ -1,2 +1,5 @@
 *** Variables ***
 ${lbl_headerLocation_Dashboard}    //android.widget.TextView[@text='Please choose a location']
+${mnu_hamburgerMenu_Dashboard}    //android.widget.TextView[@text='Please choose a location']/preceding-sibling::android.view.ViewGroup/android.widget.TextView
+${mnu_SignOut_Dashboard}    //android.widget.TextView[@text='SIGN OUT']
+${mnu_PAYMENT_Dashboard}    //android.widget.TextView[@text='PAYMENT']

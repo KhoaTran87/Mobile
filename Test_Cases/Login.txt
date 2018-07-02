@@ -23,7 +23,7 @@ TC02: Login with incorrect email
     Wait Until Element Is Visible    ${alr_WrongEmailPassword_LoginScreen}
     Element Text Should Be    ${alr_WrongEmailPassword_LoginScreen}    Wrong email or password.
 
-TC03: Login with invalid email
+TC03: Login with invalid email and password
     Comment    STEP 1: Input invalid email
     Wait Until Element Is Visible    ${btn_SignIn_LoginScreen}
     Input Text    ${txt_Email_LoginScreen}    abc

@@ -1,0 +1,118 @@
+*** Settings ***
+Suite Setup
+Test Setup
+Test Teardown
+Library           AppiumLibrary
+Resource          ../Interfaces/LoginScreen.txt
+Resource          ../Variable/Login_Variable.txt
+Resource          ../Interfaces/Dashboard.txt
+Resource          ../Keywords/Login_keyword.txt
+Resource          ../Interfaces/PaymentMethods.txt
+Resource          ../Keywords/PaymentMethods.txt
+Resource          ../Keywords/CommonKeyworks.txt
+
+*** Test Cases ***
+TC01: User is able to add new Credit Card
+    [Documentation]    1. Login with existing account
+    ...    2. Open Hamburger Menu
+    ...    3. Navigate to PAYMENT
+    ...    4. Click Add Payment Methods button
+    ...    5. Click Credit or Debit Card
+    ...    6. Enter valid information for new card
+    ...
+    ...    EXPECTED \ RESULT:
+    ...    New Card is added successfully
+    [Setup]    Open Application    http://localhost:4723/wd/hub    platformName=Android    platformVersion=8.0.0    deviceName=BH903K4R72    appPackage=com.rngopher
+    ...    appActivity=com.rngopher.MainActivity
+    Comment    STEP 1: Login with valid credential
+    Login    ${valid_email}    ${valid_password}
+    Comment    VP: User is able to login with valid account successfully
+    Wait Until Element Is Visible    ${lbl_headerLocation_Dashboard}    10s
+    Element Should Be Visible    ${lbl_headerLocation_Dashboard}
+    Comment    STEP 2: Click Hamburger Menu
+    Click Element    ${mnu_hamburgerMenu_Dashboard}
+    Wait Until Element Is Visible    ${mnu_SignOut_Dashboard}
+    Comment    STEP 3: Tap PAYMENT menu
+    Click Element    ${mnu_PAYMENT_Dashboard}
+    Comment    STEP 4: Click Add Payment Methods button
+    Wait Until Element Is Visible    ${btn_ADDPAYMENTMETHODS_PaymentMethods}
+    Click Element    ${btn_ADDPAYMENTMETHODS_PaymentMethods}
+    Comment    STEP 5: Click Credit or Debit Card
+    Wait Until Element Is Visible    ${btn_CreditorDebitCard_AddPayment}
+    Click Element    ${btn_CreditorDebitCard_AddPayment}
+    Comment    STEP 6: Enter valid information for \ new Card
+    Add Credit or Debit Card    4000056655665556    12/18    123
+    Comment    VP: New Card is added successfully
+    Wait Until Element Is Visible    ${btn_ADDPAYMENTMETHODS_PaymentMethods}
+    Check Credit or Debit Card Available    5556
+
+TC02: User is able to set primary to any existing card
+    [Documentation]    Pre-conditions:
+    ...    There are some existing cards
+    ...
+    ...
+    ...    STEPS:
+    ...
+    ...    1. Login with existing account
+    ...    2. Navigate to Payment screen
+    ...    3. Select to open any existing Card
+    ...    4. Set as primary this selected card
+    ...
+    ...    EXPECTED \ RESULT:
+    ...    Card is set as primary successfully
+    ...
+    [Setup]    Open Application    http://localhost:4723/wd/hub    platformName=Android    platformVersion=8.0.0    deviceName=BH903K4R72    appPackage=com.rngopher
+    ...    appActivity=com.rngopher.MainActivity
+    Comment    STEP 1: Login with valid credential
+    Login    ${valid_email}    ${valid_password}
+    Comment    VP: User is able to login with valid account successfully
+    Wait Until Element Is Visible    ${lbl_headerLocation_Dashboard}    10s
+    Element Should Be Visible    ${lbl_headerLocation_Dashboard}
+    Comment    STEP 2: Navigate to Payment screen
+    Navigate To Screen    PAYMENT
+    Wait Until Element Is Visible    ${btn_ADDPAYMENTMETHODS_PaymentMethods}
+    Comment    STEP 3: Select to open any existing Card
+    Open Card Details    5556
+    Comment    STEP 4: Set as primary the selected card
+    Click Element    ${tgl_Setasprimary_CardDetails}
+    Wait Until Element Is Visible    ${btn_ADDPAYMENTMETHODS_PaymentMethods}
+    Comment    EXPECTED \ RESULT: Card is set as primary successfully
+    Check Card is Primary    5556
+    SignOut
+    [Teardown]    Close Application
+
+TC03: User is able to delete existing card
+    [Documentation]    Pre-conditions:
+    ...    There are some existing cards
+    ...
+    ...
+    ...    STEPS:
+    ...
+    ...    1. Login with existing account
+    ...    2. Navigate to Payment screen
+    ...    3. Select to open any existing Card
+    ...    4. Delete this card
+    ...
+    ...    EXPECTED \ RESULT:
+    ...    Card is delete successfully
+    ...
+    [Setup]    Open Application    http://localhost:4723/wd/hub    platformName=Android    platformVersion=8.0.0    deviceName=BH903K4R72    appPackage=com.rngopher
+    ...    appActivity=com.rngopher.MainActivity
+    Comment    STEP 1: Login with valid credential
+    Login    ${valid_email}    ${valid_password}
+    Comment    VP: User is able to login with valid account successfully
+    Wait Until Element Is Visible    ${lbl_headerLocation_Dashboard}
+    Element Should Be Visible    ${lbl_headerLocation_Dashboard}
+    Comment    STEP 2: Navigate to Payment screen
+    Navigate To Screen    PAYMENT
+    Wait Until Element Is Visible    ${btn_ADDPAYMENTMETHODS_PaymentMethods}
+    Comment    STEP 3: Select to open any existing Card
+    Open Card Details    5556
+    Comment    STEP 4: Delete this card
+    Wait Until Element Is Visible    ${btn_DELETE_CardDetails}
+    Click Element    ${btn_DELETE_CardDetails}
+    Comment    EXPECTED RESULT: Card is delete successfully
+    Wait Until Element Is Visible    ${btn_ADDPAYMENTMETHODS_PaymentMethods}
+    Check Credit or Debit Card Unavailable    5556
+    SignOut
+    [Teardown]    Close Application

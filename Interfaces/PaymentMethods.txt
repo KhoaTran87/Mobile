@@ -1,0 +1,9 @@
+*** Variables ***
+${btn_ADDPAYMENTMETHODS_PaymentMethods}    //android.widget.TextView[@text='ADD PAYMENT METHODS']
+${btn_CreditorDebitCard_AddPayment}    //android.widget.TextView[@text='Credit or Debit Card']
+${txt_CarNumber_AddCard}    //android.widget.EditText[@text='Card number']
+${txt_MMYY_AddCard}    //android.widget.EditText[@text='MM/YY']
+${txt_CVC_AddCard}    //android.widget.EditText[@text='CVC']
+${btn_Save_AddCard}    //android.widget.TextView[@text='Save']
+${tgl_Setasprimary_CardDetails}    //android.widget.Switch
+${btn_DELETE_CardDetails}    //android.widget.TextView[@text='DELETE']

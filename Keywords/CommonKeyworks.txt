@@ -1,0 +1,16 @@
+*** Settings ***
+Resource          ../Interfaces/Dashboard.txt
+Library           AppiumLibrary
+
+*** Keywords ***
+Navigate To Screen
+    [Arguments]    ${screenname}
+    Click Element    ${mnu_hamburgerMenu_Dashboard}
+    Wait Until Element Is Visible    ${mnu_SignOut_Dashboard}
+    Comment    Tap on Screen Name
+    Click Element    //android.widget.TextView[@text='${screenname}']
+
+SignOut
+    Click Element    ${mnu_hamburgerMenu_Dashboard}
+    Wait Until Element Is Visible    ${mnu_SignOut_Dashboard}
+    Click Element    ${mnu_SignOut_Dashboard}

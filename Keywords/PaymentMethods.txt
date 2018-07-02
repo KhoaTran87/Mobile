@@ -1,0 +1,30 @@
+*** Settings ***
+Library           AppiumLibrary
+Resource          ../Interfaces/PaymentMethods.txt
+
+*** Keywords ***
+Add Credit or Debit Card
+    [Arguments]    ${CardNumber}    ${MMYY}    ${CVC}
+    Wait Until Element Is Visible    ${txt_CVC_AddCard}
+    Comment    Input Card information
+    Input Text    ${txt_CarNumber_AddCard}    ${CardNumber}
+    Input Text    ${txt_MMYY_AddCard}    ${MMYY}
+    Input Text    ${txt_CVC_AddCard}    ${CVC}
+    Comment    Click Save button
+    Click Element    ${btn_Save_AddCard}
+
+Check Credit or Debit Card Available
+    [Arguments]    ${4lastdigit}
+    Element Should Be Visible    //android.widget.TextView[@text='${4lastdigit}']
+
+Open Card Details
+    [Arguments]    ${last4digit}
+    Click Element    //android.widget.TextView[@text='${last4digit}']
+
+Check Card is Primary
+    [Arguments]    ${last4digit}
+    Element Text Should Be    //android.widget.TextView[@text='${last4digit}']/following-sibling::android.widget.TextView    Primary
+
+Check Credit or Debit Card Unavailable
+    [Arguments]    ${last4digit}
+    Element Should Be Disabled    //android.widget.TextView[@text='${4lastdigit}']
